@@ -1,5 +1,6 @@
 # Raktarkezelo
 Raktárkezelő alkalmazás vizsgaremek. OKTÁV szoftverfejlesztő tanfolyam
+valami
 
 # Raktárkezelő rendszer
 
