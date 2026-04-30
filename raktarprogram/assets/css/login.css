@@ -1,0 +1,62 @@
+.login-page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:
+        linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+        url('/VizsgaPHP/raktarprogram/assets/images/login-bg.png') center center / cover no-repeat !important;
+}
+
+.login-card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 40px;
+    border-radius: 16px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    animation: loginFadeUp 0.8s ease;
+}
+
+.login-card h2 {
+    color: #f8f4f4;
+}
+
+.login-card .form-group label {
+    color: #f5f2f2;
+}
+
+.login-card input {
+    background: rgba(255,255,255,0.92);
+    color: #2f3640;
+}
+
+.login-card .form-group {
+    margin-bottom: 15px;
+}
+
+.login-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-card .btn {
+    padding: 14px 0;
+    font-size: 16px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+@keyframes loginFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

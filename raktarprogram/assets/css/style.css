@@ -1,0 +1,909 @@
+/*Mindent nulláz*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/*Alap*/
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: #2f3640;
+    background: linear-gradient(rgba(0, 0, 0, 0.22), rgba(0, 0, 0, 0.22)), url('/VizsgaPHP/raktarprogram/assets/images/all-bg.jpg') center center / cover no-repeat fixed;
+}
+
+
+/* Felső menüsor */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    min-height: 72px;
+    padding: 14px 18px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar h1 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1;
+    color: #1f2937;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+    margin-left: auto;
+}
+
+.nav-right input {
+    width: 240px;
+    flex: 1;
+    min-width: 120px;
+    height: 42px;
+    margin: 0;
+    padding: 0 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.nav-right .btn,
+.nav-right a {
+    height: 42px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+
+/* Bal oldali menü */
+
+.sidebar {
+    width: 235px;
+    min-width: 235px;
+    flex-shrink: 0;
+    padding: 20px 14px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid rgba(255, 255, 255, 0.22);
+    position: sticky;
+    top: 72px;
+    height: calc(100vh - 72px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1000;
+    transition: width 0.25s ease, min-width 0.25s ease, padding 0.25s ease;
+}
+
+.sidebar ul {
+    list-style: none;
+    width: 100%;
+}
+
+.sidebar li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    border-radius: 14px;
+    cursor: pointer;
+    color: #1f2937;
+    font-weight: 700;
+    transition: 0.2s ease;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.sidebar li[class^="cat-"] {
+    border-left: 4px solid transparent;
+}
+
+.sidebar .cat-uzemanyag-es-kenoanyag {
+    background: rgba(59, 130, 246, 0.12);
+    border-left-color: rgb(59, 130, 246);
+}
+
+.sidebar .cat-jarmu-alkatresz {
+    background: rgba(107, 114, 128, 0.18);
+    border-left-color: rgb(107, 114, 128);
+}
+
+.sidebar .cat-tarolas {
+    background: rgba(139, 92, 246, 0.18);
+    border-left-color: rgb(139, 92, 246);
+}
+
+.sidebar .cat-csomagoloanyagok {
+    background: rgba(16, 185, 129, 0.15);
+    border-left-color: rgb(16, 185, 129);
+}
+
+.sidebar .cat-emelo-eszkozok {
+    background: rgba(245, 158, 11, 0.18);
+    border-left-color: rgb(245, 158, 11);
+}
+
+.sidebar .cat-munkavedelem {
+    background: rgba(239, 68, 68, 0.15);
+    border-left-color: rgb(239, 68, 68);
+}
+
+.sidebar .cat-raktari-eszkozok {
+    background: rgba(14, 165, 233, 0.15);
+    border-left-color: rgb(14, 165, 233);
+}
+
+.sidebar .cat-hutes {
+    background: rgba(56, 189, 248, 0.15);
+    border-left-color: rgb(56, 189, 248);
+}
+
+.sidebar .cat-egyeb {
+    background: rgba(148, 163, 184, 0.15);
+    border-left-color: rgb(148, 163, 184);
+}
+
+.nav-text {
+    display: block;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    line-height: 1.25;
+}
+
+.sidebar li:hover {
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.sidebar li.active {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+}
+
+.nav-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+
+/* oldal szerkezet */
+
+.main-layout {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - 72px);
+}
+
+.content {
+    flex: 1;
+    min-width: 0;
+    padding: 30px;
+}
+
+
+/* csak a régi asztali terméklista legyen elrejtve */
+
+.desktop-table {
+    display: none;
+}
+
+
+/* Gombok kinézete*/
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #00c853, #64dd17);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    transition: 0.2s ease;
+}
+
+.btn:hover {
+    background: #27ae60;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cancel {
+    background: #e74c3c;
+}
+
+.cancel:hover {
+    background: #d63c2e;
+}
+
+.edit-btn {
+    color: #f59e0b;
+    text-decoration: none;
+    font-size: 20px;
+    transition: 0.2s ease;
+}
+
+.edit-btn:hover {
+    color: #d97706;
+    transform: scale(1.15);
+}
+
+.delete-btn {
+    color: #e74c3c;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.2s;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    color: #c0392b;
+    transform: scale(1.2);
+}
+
+
+/* Kategóriák formázása */
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1f2937;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    white-space: normal;
+    text-align: center;
+}
+
+.cat-csomagoloanyagok {
+    background: rgba(16, 185, 129, 0.22);
+}
+
+.cat-uzemanyag-es-kenoanyag {
+    background: rgba(59, 130, 246, 0.22);
+}
+
+.cat-emelo-eszkozok {
+    background: rgba(245, 158, 11, 0.25);
+}
+
+.cat-tarolas {
+    background: rgba(139, 92, 246, 0.22);
+}
+
+.cat-jarmu-alkatresz {
+    background: rgba(107, 114, 128, 0.25);
+}
+
+.cat-munkavedelem {
+    background: rgba(239, 68, 68, 0.22);
+}
+
+.cat-raktari-eszkozok {
+    background: rgba(14, 165, 233, 0.22);
+}
+
+.cat-hutes {
+    background: rgba(56, 189, 248, 0.22);
+}
+
+.cat-egyeb {
+    background: rgba(148, 163, 184, 0.22);
+}
+
+
+/* Ürlap mezők kinéete */
+
+input,
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.95);
+    color: #2f3640;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border: 2px solid #4cd137;
+    box-shadow: 0 0 5px rgba(76, 209, 55, 0.3);
+}
+
+
+/* Ürlap oldal kinézet */
+
+.form-page {
+    padding: 40px;
+}
+
+.form-card {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.80);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    color: #1f2937;
+}
+
+.product-form {
+    display: flex;
+    gap: 30px;
+    width: 100%;
+}
+
+.form-left {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-right {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-left img,
+#preview {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.btn-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+/* Hibaüzenet */
+
+.error-msg {
+    color: red;
+    font-size: 12px;
+    margin-top: 3px;
+    display: block;
+}
+
+
+/* Kép feltöltés gomb */
+
+.file-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 220px;
+    height: 44px;
+    margin: 0 auto 14px;
+    padding: 0 14px;
+    background: rgba(255, 255, 255, 0.92);
+    color: #1f2937;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.file-btn:hover {
+    background: #f3f4f6;
+    transform: translateY(-1px);
+}
+
+#imageInput {
+    display: none;
+}
+
+
+/* Galéria */
+
+.preview-gallery {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.preview-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.preview-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* Kártyás termék */
+
+.mobile-product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    min-width: 0;
+}
+
+.product-card {
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+    margin-bottom: 0;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 16px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-card-top {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;
+}
+
+.product-card-image {
+    width: 100%;
+    max-width: 88px;
+    height: 88px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.product-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+    flex: 1;
+}
+
+.product-card-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    color: #1f2937;
+    line-height: 1.25;
+}
+
+.product-card-grid {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+}
+
+.product-card-grid p {
+    margin: 0;
+    padding: 7px 9px;
+    font-size: 12px;
+    line-height: 1.35;
+    color: #1f2937;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: 10px;
+    word-break: break-word;
+}
+
+.product-card-note {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 10px;
+    font-size: 12px;
+    color: #1f2937;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    word-break: break-word;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding-top: 6px;
+    margin-top: auto;
+    flex-wrap: wrap;
+}
+
+
+/* Táblázat */
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-top: 20px;
+    border-radius: 12px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+    color: #1f2937;
+}
+
+.table th,
+.table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.table th {
+    background: rgba(255, 255, 255, 0.95);
+    font-weight: 700;
+}
+
+.table tr:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+
+/* Készlet kártyák */
+
+.stock-card-list {
+    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.stock-card .product-card-title {
+    text-align: left;
+    font-size: 18px;
+}
+
+.stock-card .product-card-body {
+    gap: 12px;
+}
+
+.stock-card .product-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+}
+
+.stock-card .card-actions {
+    justify-content: flex-end;
+}
+
+.stock-card .product-card-note {
+    margin-top: 6px;
+}
+
+
+/* Értesítő boxok */
+
+.error-box,
+.success-box {
+    margin-bottom: 15px;
+    padding: 12px 14px;
+    border-radius: 10px;
+}
+
+.error-box {
+    background: rgba(231, 76, 60, 0.12);
+    border: 1px solid rgba(231, 76, 60, 0.35);
+}
+
+.success-box {
+    background: rgba(46, 204, 113, 0.12);
+    border: 1px solid rgba(46, 204, 113, 0.35);
+}
+
+.success-box p {
+    color: #1e7e34;
+    margin: 0;
+}
+
+
+/* Összegzőoldal */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.dashboard-card {
+    background: rgba(255, 255, 255, 0.80);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    padding: 18px;
+    color: #1f2937;
+}
+
+.dashboard-card h3 {
+    margin: 0 0 12px;
+    font-size: 18px;
+}
+
+.stat-card {
+    grid-column: span 3;
+}
+
+.quick-card {
+    grid-column: span 12;
+}
+
+.list-card {
+    grid-column: span 6;
+}
+
+.stat-number {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.dashboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dashboard-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.55);
+    text-decoration: none;
+    color: inherit;
+}
+
+.dashboard-list-item.static {
+    cursor: default;
+}
+
+.dashboard-list-item:hover {
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.dashboard-badge {
+    white-space: nowrap;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.06);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* Sötét mód */
+
+body.dark {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/VizsgaPHP/raktarprogram/assets/images/all-bg.jpg') center center / cover no-repeat fixed;
+    color: #f1f1f1;
+}
+
+body.dark .navbar {
+    background: rgba(30, 35, 45, 0.2);
+    color: white;
+}
+
+body.dark .navbar h1 {
+    color: #ffffff;
+}
+
+body.dark .nav-right input::placeholder {
+    color: #cbd5e1;
+}
+
+body.dark .sidebar {
+    background: rgba(30, 35, 45, 0.2);
+    color: #e5e7eb;
+}
+
+body.dark .sidebar li {
+    color: #e5e7eb;
+}
+
+body.dark .sidebar li:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .sidebar li.active {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #ffffff;
+}
+
+body.dark .form-card {
+    background: rgba(30, 35, 45, 0.85);
+    color: white;
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea {
+    background: #2f3640;
+    color: #f1f1f1;
+    border: 1px solid #555;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+    color: #aaa;
+}
+
+body.dark .delete-btn {
+    color: #ff6b6b;
+}
+
+body.dark .delete-btn:hover {
+    color: #ff3b3b;
+}
+
+body.dark .product-card {
+    background: rgba(30, 35, 45, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.dark .product-card-title,
+body.dark .product-card-grid p,
+body.dark .product-card-note {
+    color: #f1f1f1;
+}
+
+body.dark .product-card-grid p,
+body.dark .product-card-note {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+body.dark .badge {
+    color: #f8fafc;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+body.dark .cat-csomagoloanyagok {
+    background: rgba(16, 185, 129, 0.30);
+}
+
+body.dark .cat-uzemanyag-es-kenoanyag {
+    background: rgba(59, 130, 246, 0.35);
+}
+
+body.dark .cat-emelo-eszkozok {
+    background: rgba(245, 158, 11, 0.35);
+}
+
+body.dark .cat-tarolas {
+    background: rgba(139, 92, 246, 0.35);
+}
+
+body.dark .cat-jarmu-alkatresz {
+    background: rgba(148, 163, 184, 0.28);
+}
+
+body.dark .cat-munkavedelem {
+    background: rgba(239, 68, 68, 0.30);
+}
+
+body.dark .cat-raktari-eszkozok {
+    background: rgba(14, 165, 233, 0.30);
+}
+
+body.dark .cat-hutes {
+    background: rgba(56, 189, 248, 0.30);
+}
+
+body.dark .cat-egyeb {
+    background: rgba(148, 163, 184, 0.24);
+}
+
+body.dark .dashboard-card {
+    background: rgba(30, 35, 45, 0.85);
+    color: #f1f1f1;
+}
+
+body.dark .dashboard-list-item {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+body.dark .dashboard-list-item:hover {
+    background: rgba(255, 255, 255, 0.10);
+}
+
+body.dark .dashboard-badge {
+    background: rgba(255, 255, 255, 0.10);
+    color: #f1f1f1;
+}
+
+body.dark .table {
+    background: rgba(30, 35, 45, 0.9);
+    color: #f1f1f1;
+}
+
+body.dark .table th {
+    background: rgba(50, 55, 70, 0.95);
+    color: #ffffff;
+}
+
+body.dark .table td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: #e5e7eb;
+}
+
+body.dark .table tr:hover {
+    background: rgba(255, 255, 255, 0.06);
+}
